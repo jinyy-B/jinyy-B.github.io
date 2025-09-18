@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creative Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/3.1.2/fullpage.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif !important;
+            line-height: 1.6;
+            color: #2d3748;
+        }
+
+        ul {
+            list-style-type: none;
+        }
+
+        a {
+            text-decoration: none !important;
+        }
+
+        h1 {
+            color: #6366f1;
+            font-weight: 700;
+        }
+
+        p {
+            font-size: 18px;
+            color: #4a5568;
+            line-height: 1.7;
+        }
+
+        .section {
+            text-align: center;
+        }
+
+        /* Navigation Styles */
+        .nav-brand {
+            position: fixed;
+            left: 0;
+            top: 0;
+            z-index: 600;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 0 0 20px 0;
+        }
+
+        .nav-brand img {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .fa-bars {
+            display: none !important;
+            color: #6366f1;
+            font-size: 1.8rem;
+            position: fixed;
+            top: 25px;
+            right: 25px;
+            z-index: 500;
+            cursor: pointer;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 50%;
+            backdrop-filter: blur(10px);
+        }
+
+        .fa-times {
+            color: #6366f1;
+            font-size: 1.8rem;
+            position: absolute;
+            top: 25px;
+            right: 25px;
+            z-index: 600;
+            cursor: pointer;
+            padding: 10px;
+        }
+
+        .header-links {
+            position: fixed;
+            top: 0;
+            right: 0;
+            z-index: 500;
+            padding: 25px 30px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 0 0 0 30px;
+        }
+
+        .header-links li {
+            display: inline-block;
+            margin-left: 2rem;
+        }
+
+        .header-links a {
+            color: #4a5568;
+            font-size: 15px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 8px 16px;
+            border-radius: 25px;
+        }
+
+        .header-links a:hover {
+            color: #6366f1;
+            background: rgba(99, 102, 241, 0.1);
+        }
+
+        /* Mobile Navigation */
+        .nav-screen {
+            height: 100%;
+            z-index: 500;
+            position: fixed;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            opacity: 1;
+            right: -350px;
+            width: 350px;
+            backdrop-filter: blur(20px);
+        }
+
+        .nav-container {
+            padding-top: 20%;
+        }
+
+        .nav-links {
+            width: 100%;
+            text-align: center;
+        }
+
+        .nav-links ul {
+            margin-top: 10%;
+        }
+
+        .nav-links a {
+            color: #ffffff;
+            font-size: 24px;
+            font-weight: 500;
+            display: block;
+            padding: 15px 0;
+            margin: 10px 0;
+            transition: all 0.3s ease;
+            border-radius: 10px;
+            margin: 10px 20px;
+        }
+
+        .nav-links a:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateX(10px);
+        }
+
+        /* Hero Section */
+        .aboutme {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.9), rgba(139, 92, 246, 0.9)), 
+                        url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=2072&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .opaque-bg {
+            margin: 0 auto;
+            max-width: 800px;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .aboutme h1 {
+            font-size: clamp(3rem, 8vw, 6rem);
+            color: white;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .aboutme p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+            font-weight: 300;
+            margin-bottom: 2rem;
+        }
+
+        .blinking-cursor {
+            font-weight: 300;
+            margin-left: 4px;
+            font-size: inherit;
+            color: white !important;
+            animation: 1.5s blink step-end infinite;
+        }
+
+        @keyframes blink {
+            from, to { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        /* Bouncing Arrow */
+        .fa-chevron-down {
+            color: white !important;
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 1s ease;
+            font-size: 2rem;
+            padding: 15px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .bounce {
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateX(-50%) translateY(0);
+            }
+            40% {
+                transform: translateX(-50%) translateY(-15px);
+            }
+            60% {
+                transform: translateX(-50%) translateY(-8px);
+            }
+        }
+
+        /* About Section */
+        .content {
+            margin: 0 auto;
+            max-width: 1000px;
+            padding: 0 2rem;
+        }
+
+        .content h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            margin-bottom: 2rem;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Skill Bars */
+        .container-skillbar {
+            width: 100%;
+            padding-top: 3rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .skillbar {
+            position: relative;
+            display: block;
+            margin-bottom: 2rem;
+            width: 100%;
+            background: #f1f5f9;
+            height: 50px;
+            border-radius: 25px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .skillbar:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .skillbar-title {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 140px;
+            height: 50px;
+            font-weight: 600;
+            font-size: 14px;
+            color: #fff;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            border-radius: 25px 0 0 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2;
+        }
+
+        .skillbar-bar {
+            height: 50px;
+            width: 0px;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(139, 92, 246, 0.2));
+            border-radius: 25px;
+            position: relative;
+        }
+
+        .skill-bar-percent {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 14px;
+            font-weight: 600;
+            color: #4a5568;
+        }
+
+        /* Portfolio Section */
+        .content-slide {
+            margin: 0 auto;
+            max-width: 900px;
+            padding: 0 2rem;
+        }
+
+        .content-slide h1 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .content-slide img {
+            width: 85%;
+            max-width: 600px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+            transition: transform 0.3s ease;
+        }
+
+        .content-slide img:hover {
+            transform: scale(1.02);
+        }
+
+        /* Fullpage.js Controls */
+        .fp-controlArrow.fp-next {
+            border-color: transparent transparent transparent #6366f1 !important;
+            right: 50px !important;
+        }
+
+        .fp-controlArrow.fp-prev {
+            border-color: transparent #6366f1 transparent transparent !important;
+            left: 50px !important;
+        }
+
+        #fp-nav ul li a span,
+        .fp-slidesNav ul li a span {
+            background: rgba(99, 102, 241, 0.3) !important;
+            border: 2px solid rgba(99, 102, 241, 0.5) !important;
+        }
+
+        #fp-nav ul li a.active span,
+        .fp-slidesNav ul li a.active span {
+            background: #6366f1 !important;
+        }
+
+        /* Contact Section */
+        .contact-form {
+            padding: 0 1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .form-control {
+            border: 2px solid #e2e8f0;
+            width: 100%;
+            height: 60px;
+            font-size: 16px;
+            padding: 0 20px;
+            margin: 0 0 1.5rem 0;
+            font-weight: 500;
+            border-radius: 15px;
+            background: #f8fafc;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #6366f1;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+        }
+
+        textarea.form-control {
+            min-height: 150px;
+            padding: 20px;
+            resize: vertical;
+        }
+
+        #submit {
+            outline: none;
+            padding: 18px 40px;
+            min-width: 200px;
+            border-radius: 50px;
+            border: none;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+        }
+
+        #submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(99, 102, 241, 0.4);
+        }
+
+        /* Footer */
+        .footer {
+            background: linear-gradient(135deg, #1f2937, #374151);
+            height: 120px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .footer p {
+            color: white;
+            font-weight: 600;
+            font-size: 16px;
+            margin-bottom: 0;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-links a {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1.5rem;
+            padding: 10px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: white;
+            background: rgba(99, 102, 241, 0.6);
+            transform: translateY(-3px);
+        }
+
+        /* Alert Messages */
+        .success, .error {
+            padding: 1rem 1.5rem;
+            margin: 1rem 0;
+            border-radius: 10px;
+            font-weight: 500;
+        }
+
+        .success {
+            color: #065f46;
+            background-color: #d1fae5;
+            border: 1px solid #a7f3d0;
+        }
+
+        .error {
+            color: #991b1b;
+            background-color: #fee2e2;
+            border: 1px solid #fca5a5;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .fa-bars {
+                display: block !important;
+            }
+
+            .header-links {
+                display: none;
+            }
+
+            .aboutme h1 {
+                font-size: 2.5rem;
+            }
+
+            .content, .content-slide {
+                max-width: 90%;
+            }
+
+            .skillbar-title {
+                width: 120px;
+            }
+
+            .nav-screen {
+                width: 100%;
+                right: -100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .content, .content-slide {
+                max-width: 95%;
+            }
+
+            .opaque-bg {
+                padding: 1.5rem;
+            }
+
+            .container-skillbar {
+                padding: 0 1rem;
+            }
+        }
+
+        /* Loading Animation */
+        .spinner {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+
+        .spinner > div {
+            background-color: white;
+            height: 60px;
+            width: 8px;
+            margin: 0 3px;
+            border-radius: 4px;
+            display: inline-block;
+            animation: sk-stretchdelay 1.2s infinite ease-in-out;
+        }
+
+        .spinner .rect2 { animation-delay: -1.1s; }
+        .spinner .rect3 { animation-delay: -1.0s; }
+        .spinner .rect4 { animation-delay: -0.9s; }
+        .spinner .rect5 { animation-delay: -0.8s; }
+
+        @keyframes sk-stretchdelay {
+            0%, 40%, 100% {
+                transform: scaleY(0.4);
+            }
+            20% {
+                transform: scaleY(1.0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div class="spinner" id="loader">
+        <div class="rect1"></div>
+        <div class="rect2"></div>
+        <div class="rect3"></div>
+        <div class="rect4"></div>
+        <div class="rect5"></div>
+    </div>
+
+    <!-- Navigation Header -->
+    <div class="nav-header">
+        <div class="nav-brand">
+            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face" alt="Logo">
+        </div>
+        <i class="fa fa-bars fa-2x"></i>
+        <div class="header-links">
+            <ul>
+                <li data-menuanchor="contact"><a href="#contact">CONTACT</a></li>
+                <li data-menuanchor="portfolio"><a href="#portfolio">PORTFOLIO</a></li>
+                <li data-menuanchor="about"><a href="#about">ABOUT</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Mobile Navigation -->
+    <div class="nav-screen">
+        <i class="fa fa-times fa-2x"></i>
+        <div class="nav-container">
+            <div class="nav-links">
+                <ul id='myMenu'>
+                    <li data-menuanchor="about"><a href="#about">ABOUT</a></li>
+                    <li data-menuanchor="portfolio"><a href="#portfolio">PORTFOLIO</a></li>
+                    <li data-menuanchor="contact"><a href="#contact">CONTACT</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Fullpage Container -->
+    <div id="fullpage">
+        <!-- Hero Section -->
+        <div class="section aboutme" data-anchor="home">
+            <div class="opaque-bg animated fadeInDown">
+                <h1>CREATIVE<span style="color:#8b5cf6">/</span>DESIGNER</h1>
+                <p><span id="holder"></span><span class="blinking-cursor">|</span></p>
+            </div>
+            <i id="moveDown" class="fa fa-chevron-down fa-2x bounce"></i>
+        </div>
+
+        <!-- About Section -->
+        <div class="section" data-anchor="about">
+            <div class="content">
+                <h1 class="wow fadeInDown" data-wow-delay="0.2s">ABOUT ME</h1>
+                <p class="wow fadeInDown" data-wow-delay="0.3s">안녕하세요! 저는 사용자 중심의 디자인과 혁신적인 기술로 브랜드 스토리를 전달하는 크리에이티브 디자이너입니다.</p>
+
+                <div class="container-skillbar wow fadeInUp" data-wow-delay="0.4s">
+                    <div class="skillbar" data-percent="95%">
+                        <div class="skillbar-title"><span>UI/UX Design</span></div>
+                        <div class="skillbar-bar"></div>
+                        <div class="skill-bar-percent">95%</div>
+                    </div>
+
+                    <div class="skillbar" data-percent="90%">
+                        <div class="skillbar-title"><span>Web Design</span></div>
+                        <div class="skillbar-bar"></div>
+                        <div class="skill-bar-percent">90%</div>
+                    </div>
+
+                    <div class="skillbar" data-percent="85%">
+                        <div class="skillbar-title"><span>Graphic Design</span></div>
+                        <div class="skillbar-bar"></div>
+                        <div class="skill-bar-percent">85%</div>
+                    </div>
+
+                    <div class="skillbar" data-percent="80%">
+                        <div class="skillbar-title"><span>Brand Identity</span></div>
+                        <div class="skillbar-bar"></div>
+                        <div class="skill-bar-percent">80%</div>
+                    </div>
+
+                    <div class="skillbar" data-percent="75%">
+                        <div class="skillbar-title"><span>Motion Design</span></div>
+                        <div class="skillbar-bar"></div>
+                        <div class="skill-bar-percent">75%</div>
+                    </div>
+
+                    <div class="skillbar" data-percent="70%">
+                        <div class="skillbar-title"><span>Photography</span></div>
+                        <div class="skillbar-bar"></div>
+                        <div class="skill-bar-percent">70%</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Portfolio Section -->
+        <div class="section" data-anchor="portfolio">
+            <div class="content-slide">
+                <div class="slide">
+                    <h1 class="wow fadeInDown" data-wow-delay="0.2s">E-COMMERCE PLATFORM</h1>
+                    <p class="wow fadeInDown" data-wow-delay="0.3s">모던하고 직관적인 온라인 쇼핑 경험을 위한 플랫폼 디자인</p>
+                    <img class="wow fadeInUp" data-wow-delay="0.4s" src="https://images.unsplash.com/photo-1563013544-824ae1b704d3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="E-commerce Platform">
+                </div>
+                <div class="slide">
+                    <h1>MOBILE BANKING APP</h1>
+                    <p>안전하고 사용자 친화적인 모바일 뱅킹 인터페이스 설계</p>
+                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Mobile Banking App">
+                </div>
+                <div class="slide">
+                    <h1>BRAND IDENTITY</h1>
+                    <p>스타트업을 위한 완전한 브랜드 아이덴티티 시스템 구축</p>
+                    <img src="https://images.unsplash.com/photo-1553830591-2f39e38a013c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Brand Identity">
+                </div>
+                <div class="slide">
+                    <h1>LEARNING PLATFORM</h1>
+                    <p>교육 효과를 극대화하는 온라인 학습 플랫폼 UI/UX</p>
+                    <img src="https://images.unsplash.com/photo-1501504905252-473c47e087f8?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Learning Platform">
+                </div>
+                <div class="slide">
+                    <h1>HEALTH & FITNESS APP</h1>
+                    <p>개인 맞춤형 건강 관리를 위한 모바일 애플리케이션</p>
+                    <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Health App">
+                </div>
+                <div class="slide">
+                    <h1>CREATIVE PORTFOLIO</h1>
+                    <p>아티스트를 위한 창작물 전시 포트폴리오 웹사이트</p>
+                    <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Creative Portfolio">
+                </div>
+            </div>
+        </div>
+
+        <!-- Contact Section -->
+        <div class="section" data-anchor="contact">
+            <div class="content wow fadeInDown" data-wow-delay="0.2s">
+                <h1>LET'S WORK TOGETHER</h1>
+                <p>새로운 프로젝트 아이디어가 있으시거나 함께 작업하고 싶으시다면 언제든 연락 주세요!</p>
+                <br>
+                <div class="contact-form">
+                    <div id="form-messages"></div>
+                    <form id="ajax-contact" method="post" role="form">
+                        <div class="form-group wow fadeInLeft" data-wow-delay="0.4s">
+                            <input type="text" class="form-control" id="name" name="name" placeholder="이름을 입력해주세요" required>
+                        </div>
+
+                        <div class="form-group wow fadeInRight" data-wow-delay="0.6s">
+                            <input type="email" class="form-control" id="email" name="email" placeholder="이메일 주소를 입력해주세요" required>
+                        </div>
+
+                        <div class="form-group wow fadeInLeft" data-wow-delay="0.8s">
+                            <textarea class="form-control" id="message" name="message" placeholder="프로젝트에 대해 자세히 알려주세요" required></textarea>
+                        </div>
+
+                        <div class="wow fadeInUp" data-wow-delay="1s">
+                            <button type="submit" id="submit" name="submit">Send Message</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer Section -->
+        <div class="section fp-auto-height">
+            <div class="footer">
+                <p>CONNECT WITH ME</p>
+                <div class="social-links">
+                    <a href="#" target="_blank"><i class="fab fa-linkedin"></i></a>
+                    <a href="#" target="_blank"><i class="fab fa-twitter"></i></a>
+                    <a href="#" target="_blank"><i class="fab fa-github"></i></a>
+                    <a href="#" target="_blank"><i class="fab fa-behance"></i></a>
+                    <a href="#" target="_blank"><i class="fab fa-dribbble"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/3.1.2/fullpage.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Hide loader after page load
+            setTimeout(function() {
+                $('#loader').fadeOut(500);
+            }, 1500);
+
+            // Typing animation
+            (function ($) {
+                $.fn.writeText = function (content) {
+                    var contentArray = content.split(""),
+                        current = 0,
+                        elem = this;
+                    setInterval(function () {
+                        if (current < contentArray.length) {
+                            elem.text(elem.text() + contentArray[current++]);
+                        }
+                    }, 100);
+                };
+            })(jQuery);
+
+            // Start typing animation
+            setTimeout(function() {
+                $("#holder").writeText("UI/UX DESIGNER + CREATIVE DEVELOPER");
+            }, 2000);
+
+            // Mobile navigation
+            var main = function () {
+                $(".fa-bars").click(function () {
+                    $(".nav-screen").animate({ right: "0px" }, 300);
+                    $("body").animate({ right: "285px" }, 300);
+                });
+
+                $(".fa-times").click(function () {
+                    $(".nav-screen").animate({ right: "-350px" }, 300);
+                    $("body").animate({ right: "0px" }, 300);
+                });
+
+                $(".nav-links a").click(function () {
+                    $(".nav-screen").animate({ right: "-350px" }, 300);
+                    $("body").animate({ right: "0px" }, 300);
+                });
+            };
+
+            main();
+
+            // Initialize fullpage
+            $('#fullpage').fullpage({
+                scrollBar: true,
+                responsiveWidth: 768,
+                navigation: true,
+                navigationTooltips: ["home", "about", "portfolio", "contact", "connect"],
+                anchors: ["home", "about", "portfolio", "contact", "connect"],
+                menu: "#myMenu",
+                fitToSection: false,
+                scrollingSpeed: 700,
+
+                afterLoad: function (origin, destination, direction) {
+                    var loadedSection = $(this);
+
+                    // Show arrow on first section
+                    if (destination.index == 0) {
+                        $(".fa-chevron-down").css("opacity", "1");
+                        $(".header-links a").css("color", "rgba(255,255,255,0.9)");
+                        $(".header-links").css("background", "rgba(255,255,255,0.1)");
+                    } else {
+                        $(".header-links a").css("color", "#4a5568");
+                        $(".header-links").css("background", "rgba(255,255,255,0.95)");
+                    }
+
+                    // Animate skill bars on about section
+                    if (destination.index == 1) {
+                        setTimeout(function() {
+                            $(".skillbar").each(function () {
+                                $(this).find(".skillbar-bar").animate({
+                                    width: $(this).attr("data-percent")
+                                }, 2000);
+                            });
+                        }, 500);
+                    }
+                }
+            });
+
+            // Move section down
+            $(document).on("click", "#moveDown", function () {
+                fullpage_api.moveSectionDown();
+            });
+
+            // Contact form handling
+            $("#ajax-contact").submit(function (e) {
+                e.preventDefault();
+                
+                var name = $("#name").val();
+                var email = $("#email").val();
+                var message = $("#message").val();
+                
+                if (name && email && message) {
+                    $("#form-messages").removeClass("error").addClass("success");
+                    $("#form-messages").text("메시지가 성공적으로 전송되었습니다! 빠른 시일 내에 연락드리겠습니다.");
+                    
+                    // Clear form
+                    $("#name").val("");
+                    $("#email").val("");
+                    $("#message").val("");
+                } else {
+                    $("#form-messages").removeClass("success").addClass("error");
+                    $("#form-messages").text("모든 필드를 올바르게 입력해주세요.");
+                }
+            });
+
+            // Smooth scrolling for anchor links
+            $("a[href*=#]:not([href=#])").click(function () {
+                if (location.pathname.replace(/^\//, "") == this.pathname.replace(/^\//, "") && 
+                    location.hostname == this.hostname) {
+                    var target = $(this.hash);
+                    target = target.length ? target : $("[name=" + this.hash.slice(1) + "]");
+                    if (target.length) {
+                        $("html,body").animate({
+                            scrollTop: target.offset().top
+                        }, 700);
+                        return false;
+                    }
+                }
+            });
+
+            // Add parallax effect to hero background
+            $(window).scroll(function() {
+                var scrolled = $(window).scrollTop();
+                var parallax = $('.aboutme');
+                var speed = 0.5;
+                parallax.css('background-position-y', -(scrolled * speed) + 'px');
+            });
+
+            // Add hover effects to skill bars
+            $(".skillbar").hover(
+                function() {
+                    $(this).find(".skillbar-title").css("transform", "scale(1.05)");
+                },
+                function() {
+                    $(this).find(".skillbar-title").css("transform", "scale(1)");
+                }
+            );
+
+            // Add animation classes for WOW.js alternative
+            function isElementInViewport(el) {
+                var rect = el.getBoundingClientRect();
+                return (
+                    rect.top >= 0 &&
+                    rect.left >= 0 &&
+                    rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+                    rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+                );
+            }
+
+            function animateOnScroll() {
+                $('.wow').each(function() {
+                    if (isElementInViewport(this)) {
+                        $(this).addClass('animated');
+                    }
+                });
+            }
+
+            $(window).scroll(animateOnScroll);
+            animateOnScroll();
+
+            // Add CSS animations for wow elements
+            $('<style>')
+                .prop('type', 'text/css')
+                .html(`
+                    .wow {
+                        visibility: hidden;
+                        animation-fill-mode: both;
+                        animation-duration: 1s;
+                    }
+                    
+                    .wow.animated {
+                        visibility: visible;
+                    }
+                    
+                    .fadeInDown.animated {
+                        animation-name: fadeInDown;
+                    }
+                    
+                    .fadeInUp.animated {
+                        animation-name: fadeInUp;
+                    }
+                    
+                    .fadeInLeft.animated {
+                        animation-name: fadeInLeft;
+                    }
+                    
+                    .fadeInRight.animated {
+                        animation-name: fadeInRight;
+                    }
+                    
+                    @keyframes fadeInDown {
+                        from {
+                            opacity: 0;
+                            transform: translate3d(0, -100px, 0);
+                        }
+                        to {
+                            opacity: 1;
+                            transform: translate3d(0, 0, 0);
+                        }
+                    }
+                    
+                    @keyframes fadeInUp {
+                        from {
+                            opacity: 0;
+                            transform: translate3d(0, 100px, 0);
+                        }
+                        to {
+                            opacity: 1;
+                            transform: translate3d(0, 0, 0);
+                        }
+                    }
+                    
+                    @keyframes fadeInLeft {
+                        from {
+                            opacity: 0;
+                            transform: translate3d(-100px, 0, 0);
+                        }
+                        to {
+                            opacity: 1;
+                            transform: translate3d(0, 0, 0);
+                        }
+                    }
+                    
+                    @keyframes fadeInRight {
+                        from {
+                            opacity: 0;
+                            transform: translate3d(100px, 0, 0);
+                        }
+                        to {
+                            opacity: 1;
+                            transform: translate3d(0, 0, 0);
+                        }
+                    }
+                `)
+                .appendTo('head');
+        });
+    </script>
+</body>
+</html>
